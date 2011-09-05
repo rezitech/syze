@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Syze Example</title>
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=160, width=device-width">
+		<link rel="shortcut icon" href="favicon.ico">
+		<style>
+		body { border-radius: 20px; font: 12px/1.5 sans-serif; margin: 10px; min-width: 300px; padding: 18px; -moz-transition: border 1s; -webkit-transition: border 1s; }
+		.is320  body { border: 10px solid #D8D8FF; }
+		.is480  body { border: 10px solid #DDF; }
+		.is768  body { border: 10px solid #E8E8FF; }
+		.is1024 body { border: 10px solid #EEF; }
+		.is1080 body { border: 10px solid #F8F8FF; }
+		h1, h2, p, pre { margin: 9px 0; }
+		h1 { font-size: 30px; line-height: 1.2; }
+		h2 { font-size: 16px; line-height: 1.125; }
+		pre { font: 15px/1.2 monospace; white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+		img { vertical-align: top; }
+		.otherwiseHidden { display: none; }
+		.is320  .if320,
+		.is480  .if480,
+		.is768  .if768,
+		.is1024 .if1024
+		{ display: block; }
+		</style>
+		<script src="syze.min.js"></script>
+		<script>syze.ranges([320, 480, 768, 1024]);</script>
+	</head>
+	<body>
+		<h1>
+			Syze
+		</h1>
+		<h2>
+			Think @media queries powered by Javascript.
+		</h2>
+		<p>
+			In this example, we are using syze with the ranges 320, 480, 768, and 1024.
+		</p>
+		<p class="if320 otherwiseHidden">
+			This browser window is currently optimized for a 320px display.
+		</p>
+		<p class="if480 otherwiseHidden">
+			This browser window is currently optimized for a 480px display.
+		</p>
+		<p class="if768 otherwiseHidden">
+			This browser window is currently optimized for a 768px display.
+		</p>
+		<p class="if1024 otherwiseHidden">
+			This browser window is currently optimized for a 1024px display.
+		</p>
+		<pre>&lt;html class=&quot;<span id="htmlClassNames"></span>&quot;&gt;</pre>
+		<p>
+			Using syze:<br>
+			syze.ranges([an array of the sizes you would like to query on the browser window]);<br>
+			syze.rangeNames({ an object of the sizes and the corresponding friendly names you would like to give them});<br>
+			syze.threshold({ the number of milliseconds you would like to force between syze calls });
+		</p>
+		<p>
+			Keep it byte sized.
+			Syze is 590 bytes.
+		</p>
+		<script>
+		// add window event
+		function addWinEvent(type, fn) {
+			if (window.addEventListener) window.addEventListener(type, fn, false); else window.attachEvent('on' + type, fn);
+		}
+		function displayHtmlClassNames() {
+			document.getElementById('htmlClassNames').innerHTML = document.documentElement.className;
+		}
+		// on resize
+		addWinEvent('resize', displayHtmlClassNames);
+		displayHtmlClassNames();
+		</script>
+	</body>
+</html>

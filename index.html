@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>syze: Think @media queries powered by Javascript</title>
+		<!-- Style -->
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=160, width=device-width">
+		<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png?v=20110902">
+		<link rel="shortcut icon" href="favicon.ico?v=20110902">
+		<link rel="stylesheet" href="style.css?v=20110902">
+		<!-- Functionality -->
+		<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+		<script src="syze.js?v=1.0.1"></script>
+		<script>syze.sizes(320,480,768,1024,1920);</script>
+		<script src="//google-code-prettify.googlecode.com/svn/trunk/src/prettify.js?v=20110902"></script>
+		<script>if (/android|iPad|iPhone|iPod/.test(navigator.platform)) document.title = 'Syze';</script>
+	</head>
+	<body>
+		<div class="doc">
+			<div class="doc-content">
+				<div class="doc-head">
+					<div class="doc-head-content">
+						<h1>
+							syze
+						</h1>
+						<subline>
+							<h2>
+								Think @media queries powered by Javascript
+							</h2>
+						</subline>
+					</div>
+				</div>
+				<div class="doc-body">
+					<div class="doc-body-content">
+						<p>
+							<strong>syze</strong> is a library for JavaScript that lets you easily target your designs by device or browser sizes.
+							<strong>syze</strong> makes designing for desktops, televisions, tablets, and mobile devices simultaneously as easy as CSS.
+							<strong>syze</strong> works before page load so there is no flicker.
+							Size can update on window resize and orientation change - it works cross-browser, cross-device, cross-library and is less than 1KB.
+						</p>
+						<nav>
+							<ul>
+								<li>
+									<a href="#download">Download</a>
+								</li>
+								<li>
+									<a href="#examples">Examples</a>
+								</li>
+								<li>
+									<a href="#features">Features</a>
+								</li>
+								<li>
+									<a href="#license">License</a>
+								</li>
+								<li>
+									<a href="#contribute">Contribute</a>
+								</li>
+							</ul>
+						</nav>
+						<!-- -->
+						<h3 id="download">
+							Download
+						</h3>
+						<p>
+							Download <a href="syze.min.js">syze.min.js</a>, <a href="syze.js">syze.js</a> or get <a href="//github.com/rezitech/syze">the latest release at GitHub</a>.
+						</p>
+						<!-- -->
+						<h3 id="examples">
+							Examples
+						</h3>
+						<p>
+							To use <strong>syze</strong>, include this script anywhere in your page.
+						</p>
+						<div class="codeblock">
+<pre class="prettyprint lang-html">&lt;script src=&quot;//rezitech.github.com/syze/syze.min.js&quot;&gt;&lt;/script&gt;</pre>
+						</div>
+						<!-- -->
+						<h4>
+							Using Syze
+						</h4>
+						<p>
+							<strong>syze</strong> is easy to use - all you need is one command to begin.
+						</p>
+						<div class="codeblock">
+<pre class="prettyprint lang-js">
+syze.sizes(320, 480, 768, 1024, 1920);
+</pre>
+
+						</div>
+						<p>
+							With the above code, you could now use the following CSS because <strong>syze</strong> adds these class names to the &lt;html&gt; element.
+						</p>
+						<div class="codeblock">
+							<a class="open" href="example-syze.html" target="_blank">See full example</a>
+<pre class="prettyprint lang-css">
+body { background: no-repeat center center; }
+.is320  body { background-image: url(mobile-tall-128x128.png); }
+.is480  body { background-image: url(mobile-wide-128x128.png); }
+.is768  body { background-image: url(tablet-tall-256x256.png); }
+.is1024 body { background-image: url(tablet-wide-256x256.png); }
+.is1920 body { background-image: url(hdsize-wide-512x512.png); }
+</pre>
+						</div>
+						<p>
+							It gets better.
+							We're using <strong>syze</strong> and a callback right now to see that your browser window supports <span id="supportedContentSize">1920</span> content.
+							Resize or rotate this window and see what this reads then.
+						</p>
+						<h4>
+							Using Friendly Names
+						</h4>
+						<p>
+							You can configure <strong>syze</strong> to assign friendly names to your desired resolutions.
+						</p>
+						<div class="codeblock">
+							<a class="open" href="example-friendly_names.html" target="_blank">See full example</a>
+<pre class="prettyprint lang-js">
+// set sizes and size names
+syze.sizes(320, 480, 768, 1024, 1920).names({ 320:'MobileTall', 480:'MobileWide', 768:'TabletTall', 1024:'TabletWide', 1920:'HdSizeWide' });
+
+// How it might work:
+// a browser window of 320x480 (eg. an iPhone upright) gets: "isMobileTall ltMobileWide ltTabletTall ltTabletWide ltHdSizeWide"
+// a browser window of 1920x1080 (eg. a Desktop or TV) gets: "gtMobileTall gtMobileWide gtTabletTall gtTabletWide isHdSizeWide"
+
+// To clarify:
+// a browser window of 0-479px is "MobileTall"
+// a browser window of 480-767px is "MobileWide"
+// a browser window of 768-1023px is "TabletTall"
+// a browser window of 1024-1079px is "TabletWide"
+// a browser window of 1920px+ is "HdSizeWide"
+</pre>
+						</div>
+						<p>
+							You could also simplify the approach.
+						</p>
+						<div class="codeblock">
+							<a class="open" href="example-friendly_names_2.html" target="_blank">See full example</a>
+<pre class="prettyprint lang-js">
+// set sizes and size names
+syze.sizes(480, 768, 1920).names({ 320:'Mobile', 768:'Tablet', 1920:'HdSize' });
+
+// Mobile: 0-767, Tablet: 768-1079, HdSize: 1920+ 
+// a browser window of 320x480 (eg. an iPhone upright) would get "isMobile ltTablet ltHdSize"
+// a browser window of 768x1024 (eg. an iPad upright) would get "gtMobile isTablet ltHdSize"
+// a browser window of 1920x1080 (eg. a Desktop or TV) would get "gtMobile gtTablet isHdSize"
+</pre>
+						</div>
+						<h4>
+							Using Browser Size vs Device Size
+						</h4>
+						<p>
+							<strong>syze</strong> can read either the resolution of the browser window or the entire device, and it even factors in your device's orientation.  
+						</p>
+						<div class="codeblock">
+							<a class="open" href="example-browser_vs_device.html" target="_blank">See full example</a>
+<pre class="prettyprint lang-js">
+// set sizes and read size from device
+syze.sizes(480, 768, 1920).from('device');
+
+// a browser window of 320x480 on a device of 1920x1080 would get "gt480 gt768 is1920"
+// a browser window of 1920x1080 on a device of 320x480 would get "is480 lt768 lt1920"
+</pre>
+						</div>
+						<h4>
+							Debouncing For Better Performance
+						</h4>
+						<p>
+							<strong>syze</strong> makes a slim hit to your CPU with its built-in debouncer and gives you control over the rate at which it will fire.
+						</p>
+						<div class="codeblock">
+							<a class="open" href="example-debouncing.html" target="_blank">See full example</a>
+<pre class="prettyprint lang-js">
+// set sizes and the debounce rate
+syze.sizes(480, 768, 1920).debounceRate(500); // fires no more than once every half-second
+</pre>
+						</div>
+						<h4>
+							<abbr title="Bring your own">B.Y.O</abbr> Events
+						</h4>
+						<p>
+							<strong>syze</strong> lets you add your own events into the mix.
+							Let <strong>syze</strong> handle the resize and debouncing logic - enjoy the benefits.
+							<strong>syze</strong> is a perfect companion for your existing javascript library.
+						</p>
+						<div class="codeblock">
+							<a class="open" href="example-events.html" target="_blank">See full example</a>
+<pre class="prettyprint lang-js">
+// set sizes and add a callback
+syze.sizes(320, 480, 768, 1024, 1920).callback(
+	function(currentSize) {
+		document.getElementsByTagName('p')[0].innerHTML = 'Your browser window supports '+currentSize+' content.';
+	}
+);
+</pre>
+						</div>
+						<!-- -->
+						<h3 id="features">
+							Features
+						</h3>
+						<p>
+							<strong>syze</strong> includes a nice set of features that give you the control you want.
+						</p>
+						<h4>
+							sizes
+						</h4>
+						<p>
+							Sets the sizes to match against.
+							Sizes may be set by a series of arguments or an array.
+						</p>
+						<div class="codeblock">
+<pre class="prettyprint lang-js">
+syze.sizes(100, 200, 300); // checks size against 100, 200, 300
+syze.sizes([100, 200, 300]); // checks size against 100, 200, 300
+</pre>
+						</div>
+						<h4>
+							names
+						</h4>
+						<p>
+							Sets the names of the sizes which are used when syze adds class names to the page. 
+						</p>
+						<div class="codeblock">
+<pre class="prettyprint lang-js">
+syze.sizes(480, 768, 1920); // checks size against 480, 768, 1920
+syze.names({480: 'Mobile'}, 768: 'Tablet', 1920: 'HdSize'); // substitutes the class names 480 for 'Mobile', 768 for 'Tablet', and 1920 for 'HdSize'
+</pre>
+						</div>
+						<h4>
+							from
+						</h4>
+						<p>
+							Sets the object syze will size from.
+							Syze accepts the arguments 'browser' (reads the browser window), 'device' (reads the device resolution), or whatever is specified, which may be a variable or a "live" string.
+							The default object sized from is browser window.
+						</p>
+						<div class="codeblock">
+<pre class="prettyprint lang-js">
+syze.from('device'); // sizes from the device
+syze.from('browser'); // sizes from the browser window
+syze.from(document.body.clientWidth); // sizes from the immediate value of document.body.clientWidth
+syze.from('document.body.clientWidth'); // sizes from the live value (during each resize) of document.body.clientWidth
+</pre>
+						</div>
+						<h4>
+							debounceRate
+						</h4>
+						<p>
+							Sets the debounce rate, which is the minimum ammount of time that must pass between <strong>syze</strong> running.
+							The default debounce rate is set at 50ms.
+						</p>
+						<div class="codeblock">
+<pre class="prettyprint lang-js">
+syze.debounceRate(200); // syze fires no more than once every 200ms
+</pre>
+						</div>
+						<h4>
+							callback
+						</h4>
+						<p>
+							Sets a function to be run when <strong>syze</strong> fires.
+							Syze passes the current size as an argument.
+						</p>
+						<div class="codeblock">
+<pre class="prettyprint lang-js">
+syze.callback(function(currentSize) { console.log(currentSize); }); // logs the current size each time syze runs
+</pre>
+						</div>
+						<!-- -->
+						<h3 id="license">
+							License
+						</h3>
+						<p>
+							Syze uses a dual <a href="http://www.opensource.org/licenses/MIT">MIT</a>/<a href="http://www.opensource.org/licenses/GPL-2.0">GPL-2.0</a> License.
+							The <a href="http://www.opensource.org/licenses/MIT">MIT License</a> is recommended for most projects, because it is simple, easy to understand, and it places almost no restrictions on what you can do with Syze.
+							If the <a href="http://www.opensource.org/licenses/GPL-2.0">GPL-2.0 License</a> suits your project better, then you are also free to use Syze under that license.
+						</p>
+						<p>
+							You don't have to do anything special to choose one license or the other, and you don't have to notify anyone which license you are using.
+							You are free to use Syze in commercial projects as long as the copyright header is left intact.
+						</p>
+						<!-- -->
+						<h3 id="contribute">
+							Contribute
+						</h3>
+						<ol>
+							<li>
+								Fork it.
+							</li>
+							<li>
+								Create a branch. (<code>git checkout -b my_syze</code>)
+							</li>
+							<li>
+								Commit your changes. (<code>git commit -am &quot;Added Awesomeness&quot;</code>)
+							</li>
+							<li>
+								Push to the branch. (<code>git push origin my_syze</code>)
+							</li>
+							<li>
+								Create an <a href="//github.com/rezitech/syze/issues">Issue</a> with a link to your branca.
+							</li>
+							<li>
+								Enjoy a refreshing Coca Cola Classic (you earned it!) and wait.
+							</li>
+						</ol>
+						<!-- -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>syze.callback(function(currentSize) { document.getElementById('supportedContentSize').innerHTML = currentSize; });</script>
+		<script>prettyPrint();</script>
+	</body>
+</html>

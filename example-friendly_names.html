@@ -1,0 +1,32 @@
+<html>
+<head>
+	<meta charaset="utf-8">
+	<title>Syze Example</title>
+	<style>
+	/* Base */
+	body { font: 75%/1.5 sans-serif; margin: 10px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+	h1, p { background: rgba(255,255,255,0.5); border-radius: 0.5em; clear: both; float: left; margin: 0 0 0.5em; padding: 0.5em; text-shadow: 0 1px 1px #FFF; }
+	h1 { font-size: 225%; line-height: 1.333; }
+	/* Style */
+	body { background: no-repeat center center; }
+	.isMobileTall body { background-image: url(mobile-tall-128x128.png); }
+	.isMobileWide body { background-image: url(mobile-wide-128x128.png); }
+	.isTabletTall body { background-image: url(tablet-tall-256x256.png); }
+	.isTabletWide body { background-image: url(tablet-wide-256x256.png); }
+	.isHdSizeWide body { background-image: url(hdsize-wide-512x512.png); }
+	</style>
+	<script src="syze.min.js"></script>
+	<script>
+	syze.sizes(320, 480, 768, 1024, 1920).names({ 320:'MobileTall', 480:'MobileWide', 768:'TabletTall', 1024:'TabletWide', 1920:'HdSizeWide' });
+	</script>
+</head>
+<body>
+	<h1>
+		Syze Example
+	</h1>
+	<p>
+		Inspect the page to see what's being applied to <var>&lt;html&gt;</var>.
+		Resize the page to see the changes.
+	</p>
+</body>
+</html>

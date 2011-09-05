@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta charaset="utf-8">
+	<title>Syze Example</title>
+	<style>
+	/* Base */
+	body { font: 75%/1.5 sans-serif; margin: 10px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+	h1, p { background: rgba(255,255,255,0.5); border-radius: 0.5em; clear: both; float: left; margin: 0 0 0.5em; padding: 0.5em; text-shadow: 0 1px 1px #FFF; }
+	h1 { font-size: 225%; line-height: 1.333; }
+	</style>
+	<script src="syze.min.js"></script>
+</head>
+<body>
+	<h1>
+		Syze Example
+	</h1>
+	<p>
+		Inspect the page to see what's being applied to <var>&lt;html&gt;</var>.
+		Resize the page to see the changes.
+	</p>
+	<script>
+	syze.sizes(320, 480, 768, 1024, 1920).callback(
+		function(currentSize) {
+			document.getElementsByTagName('p')[0].innerHTML = 'Your browser window supports '+currentSize+' content.';
+		}
+	);
+	</script>
+</body>
+</html>
