@@ -21,13 +21,13 @@
 				timeout = null;
 			}
 			if (timeout) clearTimeout(timeout);
-			timeout = setTimeout(delayed, _debounceRate); 
+			timeout = setTimeout(delayed, _debounceRate);
 		};
 	}
 	// resizer
 	function onResize() {
 		var
-		currentSize = 
+		currentSize =
 			/^device$/i.test(String(_from)) ? !win.orientation || orientation == 180 ? screen.width : screen.height
 			: /^browser$/i.test(String(_from)) ? docEl.clientWidth
 			: (_from instanceof String) ? Function('return ' + _from)()
@@ -38,7 +38,7 @@
 		arr.sort(function (a, b) { return(a - b); });
 		//
 		while (++i < len) if (currentSize < arr[i]) break;
-		currentSize = arr[Math.max(Math.min(--i, len - 1), 0)];
+		if (i > 0) currentSize = arr[Math.min(--i, len - 1)];
 		//
 		i = -1;
 		while (++i < len) {
